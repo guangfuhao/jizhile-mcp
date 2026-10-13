@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jizhile-mcp"
-version = "0.1.1"
+version = "0.2.0"
 description = "Budget-aware WeChat official-account and Channels API tools"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-dependencies = ["httpx>=0.28,<1", "mcp>=1.20,<2"]
+dependencies = ["httpx>=0.28,<1", "mcp>=1.20,<2", "openpyxl>=3.1,<4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10"]
@@ -18,6 +18,8 @@ dev = ["pytest>=8,<10"]
 jizhile-mcp = "jizhile_mcp.server:main"
 jizhile-configure = "jizhile_mcp.credentials:main"
 jizhile-setup-local = "jizhile_mcp.setup_server:main"
+jizhile-configure-ark = "jizhile_mcp.transcription:configure"
+jizhile-transcribe = "jizhile_mcp.transcription:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/jizhile_mcp"]

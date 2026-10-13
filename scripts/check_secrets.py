@@ -16,16 +16,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKIP = {".git", ".venv", "__pycache__", ".pytest_cache", ".ruff_cache"}
 PATTERNS = [re.compile(rb"JZLeaf[A-Za-z0-9]{8,}"), re.compile(rb"gh[pousr]_[A-Za-z0-9]{30,}"),
+            re.compile(rb"ark-[a-f0-9]{8}-[a-f0-9-]{20,}"),
             re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")]
 
 
 def secret_values(local_config: bool) -> list[bytes]:
-    values = [os.environ.get("JIZHILE_API_KEY", ""), os.environ.get("JIZHILE_VERIFYCODE", "")]
+    values = [os.environ.get("JIZHILE_API_KEY", ""), os.environ.get("JIZHILE_VERIFYCODE", ""),
+              os.environ.get("JIZHILE_ARK_API_KEY", ""), os.environ.get("ARK_API_KEY", "")]
     if local_config:
         path = Path(os.environ.get("JIZHILE_CONFIG_FILE", "~/.config/jizhile-mcp/credentials.json")).expanduser()
         if path.exists():
             raw = json.loads(path.read_text())
             values += [raw.get("api_key", ""), raw.get("verifycode", "")]
+        ark_path = Path(os.environ.get("JIZHILE_ARK_CONFIG_FILE", "~/.config/jizhile-mcp/ark-credentials.json")).expanduser()
+        if ark_path.exists():
+            values.append(json.loads(ark_path.read_text()).get("api_key", ""))
     result = []
     for value in values:
         if isinstance(value, str) and value:

@@ -10,6 +10,27 @@
 
 支持公众号账号搜索、基础/主体信息、估算指标、当天/历史文章、贴图文章、正文/详情、阅读点赞、评论；视频号账号与视频搜索、作品/回放列表、ID、博主信息、互动/评论、分享与下载链接。返回服务方原始字段，额外附计费摘要。下载链接查询不下载媒体。
 
+## 视频口播转写与批量处理
+
+**转写流程集成在同一个jizhile-mcp插件中**，新增 `jizhile-transcription` 技能。通过本机ffmpeg分离音轨，再调用火山方舟音频理解模型转为文字；不再把视频标题当作口播文案。支持XLSX、CSV、JSON清单，原始视频URL或本地video_path，最多500条、顺序处理、分段、后台进度、取消和断点续跑。
+
+需要ffmpeg/ffprobe（macOS可运行 `brew install ffmpeg`），并单独配置火山方舟Key。可让Agent打开 `jizhile_transcription_setup_local` 本机配置页，或在终端隐藏输入：
+
+```sh
+uv run jizhile-configure-ark
+uv run jizhile-transcribe /absolute/path/videos.xlsx --ids 1,2,45
+uv run jizhile-transcribe --resume BATCH_ID --max-budget-yuan 1 --confirm-charge --accept-balance-unavailable
+uv run jizhile-transcribe --status BATCH_ID
+```
+
+第一条清单命令只准备和估算，第二条恢复命令才在确认的总预算内转写。默认使用 `doubao-seed-2-0-mini-260428`，比本插件支持的Lite参考单价低；每180秒分段，提取16kHz单声道48kbps MP3，通过Base64提交模型。完成后删除临时视频/音频，保留逐条TXT和含来源行、状态、分段、token用量的results.json，原始表格不变。默认输出在仓库外私密目录，也可指定空的output_dir。
+
+火山Key独立存储在 `~/.config/jizhile-mcp/ark-credentials.json`（0600），支持 `JIZHILE_ARK_API_KEY`、`ARK_API_KEY`、`JIZHILE_ARK_CONFIG_FILE`。火山转写与极致了查询分别计账。**方舟运行时Key无法在本流程中核实火山账户余额，工具明确返回未知；不能把极致了余额或其100元余额保护套用于火山账户。** 每批须指定总预算，确认计费及余额不可查询；每段提交前仍检查单次10元、每日500元和批次预算。
+
+转写费用按返回token和[参考价格](https://docs.volcengine.com/docs/ark/model-pricing?lang=zh)估算，不是实际账单。默认Mini的非音频输入/音频输入/输出参考价为0.2/3/2元每百万token，Lite为0.6/9/3.6元（输入≤32K，读取于2026-10-13）。预留含输出上限与余量；输出不完整、超出预留、未知扣费或强制中断时停止，不自动重试。完成结果与相同音频分段可复用；失败直链不自动调用收费接口刷新。
+
+这是自动音频转写，可能存在地名、人名、金额等同音字错误，需复核；不包含字幕OCR，也不会未经请求进行润色或事实更正。分段时间不是逐字字幕对齐。真实3条验证摘要见[脱敏回执](docs/transcription-test-receipt.json)，没有公开素材、文案、Key或签名视频URL。
+
 ## 安装与配置
 
 需要 Python 3.11+ 和 uv：
@@ -74,11 +95,14 @@ codex plugin add jizhile-mcp@jizhile-local
 
 `jizhile_settings`、`jizhile_setup_local`、`jizhile_balance`、`jizhile_catalog`、`jizhile_compare`、`jizhile_quote_search`、`jizhile_quote`、`jizhile_execute`、`jizhile_reconcile`。
 
+口播转写工具：`jizhile_transcription_settings`、`jizhile_transcription_setup_local`、`jizhile_transcription_prepare`、`jizhile_transcription_run`、`jizhile_transcription_status`、`jizhile_transcription_cancel`、`jizhile_transcription_reconcile`。
+
 常见指令：
 
 - “搜索人民日报最近发布的公众号文章，预算不超过0.5元，先告诉我计费和余额。”
 - “搜索北京楼市的视频号视频，优先便宜方案，总预算1元，最多一页。”
 - “比较获取公众号正文的接口价格，先别付费查询。”
+- “从这个50条视频表里，只转写第1、2、45条口播，先估算火山费用，在1元总预算内执行。”
 
 所有操作目录和价格来源见 `src/jizhile_mcp/catalog.json`、`docs/sources.json`。长ID必须用字符串，避免超过JavaScript安全整数范围。部分文档有冲突，例如视频搜索字段说明写BusinessType=2，而示例为7；本插件使用视频示例7并在目录标注。
 

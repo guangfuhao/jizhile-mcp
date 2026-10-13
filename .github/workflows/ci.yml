@@ -11,6 +11,7 @@ jobs:
     timeout-minutes: 10
     env:
       JIZHILE_CONFIG_FILE: /tmp/jizhile-ci-no-credentials.json
+      JIZHILE_ARK_CONFIG_FILE: /tmp/jizhile-ci-no-ark-credentials.json
       JIZHILE_STATE_DIR: /tmp/jizhile-ci-state
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -21,6 +22,12 @@ jobs:
           python-version: '3.11'
       - run: python -m pip install uv==0.12.5
       - run: uv sync --frozen --extra dev
+      - name: Ensure ffmpeg is available
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
       - run: uv run --frozen pytest -q
       - run: uv run --frozen python scripts/mcp_smoke.py
       - name: Verify portable plugin and source match

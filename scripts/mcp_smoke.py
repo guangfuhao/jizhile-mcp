@@ -39,7 +39,7 @@ async def run(live=False):
             await session.initialize()
             tools=await session.list_tools()
             report["tools"]=[x.name for x in tools.tools]
-            assert len(report["tools"])==9
+            assert len(report["tools"])==16
             async def call(name,args):
                 result=await session.call_tool(name,args)
                 data=result.structuredContent

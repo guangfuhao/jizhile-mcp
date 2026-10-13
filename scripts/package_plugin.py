@@ -19,4 +19,5 @@ for name in ("run_mcp.sh", "mcp_smoke.py"):
 (out / "docs").mkdir()
 shutil.copy2(ROOT / "docs/sources.json", out / "docs/sources.json")
 shutil.copy2(ROOT / "docs/live-test-receipt.json", out / "docs/live-test-receipt.json")
+shutil.copy2(ROOT / "docs/transcription-test-receipt.json", out / "docs/transcription-test-receipt.json")
 print(out)

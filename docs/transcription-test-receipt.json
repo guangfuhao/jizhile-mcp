@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-13",
+  "transport": "MCP stdio",
+  "model": "doubao-seed-2-0-mini-260428",
+  "video_count": 3,
+  "completed_count": 3,
+  "total_duration_seconds": 628.786,
+  "segment_count": 6,
+  "cost_estimate_yuan": "0.016872",
+  "actual_bill_yuan": null,
+  "ark_balance_yuan": null,
+  "repeat_added_model_calls": 0,
+  "checks": [
+    "Authorized HTTPS media download",
+    "Local ffmpeg mono 16kHz audio extraction",
+    "Long-video segmentation and ordered text merge",
+    "Three nonempty speech transcripts",
+    "Three video subtitle spot checks matched transcript phrases",
+    "Completed batch repeat added no model calls",
+    "Temporary media directories removed"
+  ],
+  "samples": [
+    {
+      "duration_seconds": 558.186,
+      "segment_count": 4,
+      "text_characters": 3242,
+      "status": "completed"
+    },
+    {
+      "duration_seconds": 31.1,
+      "segment_count": 1,
+      "text_characters": 56,
+      "status": "completed"
+    },
+    {
+      "duration_seconds": 39.5,
+      "segment_count": 1,
+      "text_characters": 218,
+      "status": "completed"
+    }
+  ],
+  "limitations": [
+    "Not a full word-by-word accuracy audit; proper names and homophones require review.",
+    "Remaining 47 source items were not transcribed.",
+    "Costs are token-based estimates, not provider bill settlement."
+  ],
+  "redaction": "No input workbook, source identities, signed video URLs, transcripts, keys, account balances or provider request IDs published."
+}

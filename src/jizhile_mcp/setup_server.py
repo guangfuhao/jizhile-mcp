@@ -45,7 +45,11 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
     def do_GET(self):
-        self.send(200, PAGE) if self.authorized() else self.send(404, "配置链接无效或已过期")
+        page = PAGE
+        if self.server.provider == "ark":
+            page = page.replace("极致了 API 配置", "火山方舟转写配置").replace("默认：单次10元、每日500元、保留100元余额。", "火山转写另行计费，账户余额须在火山控制台确认。")
+            page = page.replace('<label>附加码（没有可留空）<input type=password name=verifycode autocomplete=off></label>', '')
+        self.send(200, page) if self.authorized() else self.send(404, "配置链接无效或已过期")
 
     def do_POST(self):
         if not self.authorized():
@@ -56,7 +60,11 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < length <= 4096:
                 raise ValueError()
             fields = urllib.parse.parse_qs(self.rfile.read(length).decode())
-            save_credentials(fields.get("api_key", [""])[0], fields.get("verifycode", [""])[0])
+            if self.server.provider == "ark":
+                from .transcription import save_ark_key
+                save_ark_key(fields.get("api_key", [""])[0])
+            else:
+                save_credentials(fields.get("api_key", [""])[0], fields.get("verifycode", [""])[0])
         except (OSError, ValueError):
             self.send(400, "无法保存配置，请检查输入")
             return
@@ -64,9 +72,10 @@ class Handler(BaseHTTPRequestHandler):
         threading.Thread(target=self.server.shutdown, daemon=True).start()
 
 
-def serve(timeout: int, open_browser: bool, rendezvous: Path):
+def serve(timeout: int, open_browser: bool, rendezvous: Path, provider: str = "jizhile"):
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     server.daemon_threads = True
+    server.provider = provider
     server.setup_token = secrets.token_urlsafe(32)
     url = f"http://127.0.0.1:{server.server_port}/?setup={server.setup_token}"
     fd = os.open(rendezvous, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -85,10 +94,12 @@ def serve(timeout: int, open_browser: bool, rendezvous: Path):
         rendezvous.unlink(missing_ok=True)
 
 
-def launch_setup_service(open_browser=True, timeout=600):
+def launch_setup_service(open_browser=True, timeout=600, provider="jizhile"):
+    if provider not in ("jizhile", "ark"):
+        raise ValueError("未知配置类型")
     rendezvous = Path(tempfile.gettempdir()) / ("jizhile-setup-" + secrets.token_hex(16))
     process = subprocess.Popen([sys.executable, "-m", "jizhile_mcp.setup_server", "--serve", "--rendezvous", str(rendezvous),
-                                "--timeout", str(timeout), *([] if open_browser else ["--no-open"])],
+                                "--timeout", str(timeout), "--provider", provider, *([] if open_browser else ["--no-open"])],
                                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                                close_fds=True, start_new_session=True)
     for _ in range(100):
@@ -110,12 +121,13 @@ def main():
     parser.add_argument("--rendezvous")
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--no-open", action="store_true")
+    parser.add_argument("--provider", choices=("jizhile","ark"), default="jizhile")
     args = parser.parse_args()
     timeout = max(5, min(args.timeout, 600))
     if args.serve:
-        serve(timeout, not args.no_open, Path(args.rendezvous))
+        serve(timeout, not args.no_open, Path(args.rendezvous), args.provider)
     else:
-        print(json.dumps(launch_setup_service(not args.no_open, timeout), ensure_ascii=False))
+        print(json.dumps(launch_setup_service(not args.no_open, timeout, args.provider), ensure_ascii=False))
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "jizhile-mcp",
-  "version": "0.1.1",
-  "description": "公众号与视频号查询，调用前报价及余额提醒，预算、缓存和重复扣费保护。",
+  "version": "0.2.0",
+  "description": "公众号与视频号查询、视频口播转写及批量处理，支持比价、计费提醒、预算与重复扣费保护。",
   "author": {"name": "Jizhile MCP community"},
   "homepage": "https://github.com/guangfuhao/jizhile-mcp",
   "repository": "https://github.com/guangfuhao/jizhile-mcp",
@@ -13,8 +13,8 @@
     "com.openai": {
       "interface": {
         "displayName": "极致了 · 公众号与视频号",
-        "shortDescription": "公众号与视频号查询，费用与余额保护",
-        "longDescription": "50项文档操作，先比价、再报价与检查余额，授权后单次调用；缓存、预算和失败扣费保护。",
+        "shortDescription": "公众号与视频号查询，批量口播转写与费用保护",
+        "longDescription": "50项查询操作与同插件内的批量视频口播转写，支持ffmpeg音轨分离、火山模型、进度和断点续跑；先提示费用，在授权预算内执行。",
         "developerName": "Jizhile MCP community",
         "category": "Developer tools",
         "capabilities": ["Read", "Write"],

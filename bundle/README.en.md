@@ -2,7 +2,7 @@
 
 [简体中文](README.md) | **English**
 
-A budget-aware MCP plugin for Codex and compatible agents. Query WeChat Official Accounts, articles, and Channels through Jizhile's third-party API, with pricing comparisons, balance notices, and spending guards. The catalog covers 50 documented operations; only the article and video search flows have been verified against the live service.
+A budget-aware MCP plugin for Codex and compatible agents. Query WeChat Official Accounts, articles, and Channels through Jizhile's third-party API, with pricing comparisons, balance notices, and spending guards. The query catalog covers 50 documented operations; only the article and video search flows in that catalog have been verified live. The integrated audio transcription flow has a separate three-video acceptance receipt below.
 
 - [Provider website](https://www.jzl.com/)
 - [Official API documentation](https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83)
@@ -11,6 +11,27 @@ A budget-aware MCP plugin for Codex and compatible agents. Query WeChat Official
 ## Features
 
 Search accounts, articles, and videos; retrieve account profiles, ownership information, publishing history, article content, engagement metrics, comments, Channel posts, replay records, and download links. Provider response fields are preserved alongside a billing summary. Download-link queries do not download media.
+
+## Video speech transcription in the same plugin
+
+The `jizhile-transcription` skill is integrated into this existing plugin. It downloads authorized video links locally, extracts audio with ffmpeg, and calls Volcengine Ark to transcribe actual speech. It supports XLSX/CSV/JSON lists and local `video_path` inputs, up to 500 items, sequential processing, segmentation, background progress, cancellation, and resumable results. It does not turn titles into transcripts or perform subtitle OCR.
+
+Install ffmpeg and ffprobe (`brew install ffmpeg` on macOS). Configure a separate Ark Key with `jizhile_transcription_setup_local` or hidden terminal input:
+
+```sh
+uv run jizhile-configure-ark
+uv run jizhile-transcribe /absolute/path/videos.xlsx --ids 1,2,45
+uv run jizhile-transcribe --resume BATCH_ID --max-budget-yuan 1 --confirm-charge --accept-balance-unavailable
+uv run jizhile-transcribe --status BATCH_ID
+```
+
+The list command only prepares a batch and estimates its reservation. The resume command explicitly authorizes transcription within a total budget. The default model is `doubao-seed-2-0-mini-260428`, cheaper at the checked reference rates than the supported Lite model. Audio is converted to mono 16kHz, 48kbps MP3, segmented at 180 seconds, and submitted as Base64. Temporary video/audio files are removed after processing; TXT files and `results.json` retain text, source rows, item states, segments, and token usage. The input workbook is unchanged.
+
+Ark credentials are stored separately in `~/.config/jizhile-mcp/ark-credentials.json` with mode `0600`. Environment overrides: `JIZHILE_ARK_API_KEY`, `ARK_API_KEY`, and `JIZHILE_ARK_CONFIG_FILE`. **This runtime Key does not provide a verified Ark account balance in this workflow. Ark balance and the actual bill are explicitly unknown; Jizhile's balance or its CNY 100 reserve must not be presented as Ark's balance protection.** Each batch needs an explicit total budget and acceptance of billing with an unavailable balance. Per-request CNY 10 and daily CNY 500 guards still apply before each model request, subject to environment overrides.
+
+Transcription charges are estimates from returned token usage and [published reference rates](https://docs.volcengine.com/docs/ark/model-pricing?lang=zh), not settled bills. For input contexts up to 32K, rates checked on 2026-10-13 are Mini text/audio/output CNY 0.2/3/2 per million tokens, and Lite CNY 0.6/9/3.6. Reservations include an output cap and headroom. Incomplete output, uncertain charges, over-reservation estimates, and forced interruption stop subsequent calls. No automatic retries or paid link refreshes occur. Completed results and identical audio chunks can be reused.
+
+Automatic transcription can misrecognize names, places, or amounts; review those fields. There is no unsolicited rewriting or factual correction, and chunk times are not word-level subtitle alignment. See the [sanitized three-video acceptance receipt](docs/transcription-test-receipt.json); source media, transcripts, signed URLs, and credentials are not published.
 
 ## Install and configure
 
@@ -71,6 +92,8 @@ Reuse existing identifiers, list fields, and cached results before searching or 
 ## Tools and usage
 
 The plugin exposes `jizhile_settings`, `jizhile_setup_local`, `jizhile_balance`, `jizhile_catalog`, `jizhile_compare`, `jizhile_quote_search`, `jizhile_quote`, `jizhile_execute`, and `jizhile_reconcile`.
+
+Integrated transcription tools: `jizhile_transcription_settings`, `jizhile_transcription_setup_local`, `jizhile_transcription_prepare`, `jizhile_transcription_run`, `jizhile_transcription_status`, `jizhile_transcription_cancel`, and `jizhile_transcription_reconcile`.
 
 Example requests:
 

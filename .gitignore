@@ -7,6 +7,9 @@ dist/
 !.env.example
 credentials.json
 credentials*.json
+*credentials*.json
+*.xlsx
+transcription-results/
 private/
 *.sqlite*
 .DS_Store
