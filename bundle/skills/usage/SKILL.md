@@ -11,7 +11,7 @@ description: 使用极致了 API 查询微信公众号、文章和视频号数�
 
 每次执行前必须先调用 `jizhile_quote` 或 `jizhile_quote_search`，并用自然语言向用户显示本次预计/预留费用、价格依据、当前余额、预计剩余余额和缓存状态。然后仅在用户已授权的操作和预算范围内执行 `jizhile_execute`。`confirm_charge` 表示已有用户授权，不代表 Agent 可以自行授权。价格未确认时，只有用户已接受不确定性才能设置 `accept_uncertain_price=true`。
 
-完成后报告 `billing.charged_yuan` 和 `balance_after_yuan`；低于5元提醒余额偏低。未知值写“待核对”，不能写0元。缓存命中说明采集时间和本次新增业务费0元，不把旧费用当新扣费。
+完成后报告 `billing.charged_yuan` 和 `balance_after_yuan`；低于安全预留金额（默认100元）提醒余额偏低。未知值写“待核对”，不能写0元。缓存命中说明采集时间和本次新增业务费0元，不把旧费用当新扣费。
 
 省钱规则：
 

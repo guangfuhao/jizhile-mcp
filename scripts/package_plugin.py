@@ -9,7 +9,7 @@ if out.is_symlink():
 if out.exists():
     shutil.rmtree(out)
 out.mkdir()
-for name in ("plugin.json", "mcp.json", "pyproject.toml", "uv.lock", "README.md", "LICENSE"):
+for name in ("plugin.json", "mcp.json", "pyproject.toml", "uv.lock", "README.md", "README.en.md", "LICENSE"):
     shutil.copy2(ROOT / name, out / name)
 for name in ("src", "skills"):
     shutil.copytree(ROOT / name, out / name, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))

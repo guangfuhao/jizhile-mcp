@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "jizhile-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "公众号与视频号查询，调用前报价及余额提醒，预算、缓存和重复扣费保护。",
   "author": {"name": "Jizhile MCP community"},
   "homepage": "https://github.com/guangfuhao/jizhile-mcp",

@@ -117,9 +117,9 @@ class Engine:
         self.state_dir = state_dir or Path(os.getenv("JIZHILE_STATE_DIR", "~/.local/share/jizhile-mcp")).expanduser() / account
         self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
         self.db = self.state_dir / "state.sqlite3"
-        self.single = money(single if single is not None else os.getenv("JIZHILE_SINGLE_LIMIT", "1"))
-        self.daily = money(daily if daily is not None else os.getenv("JIZHILE_DAILY_LIMIT", "2"))
-        self.reserve = money(reserve if reserve is not None else os.getenv("JIZHILE_BALANCE_RESERVE", "1"))
+        self.single = money(single if single is not None else os.getenv("JIZHILE_SINGLE_LIMIT", "10"))
+        self.daily = money(daily if daily is not None else os.getenv("JIZHILE_DAILY_LIMIT", "500"))
+        self.reserve = money(reserve if reserve is not None else os.getenv("JIZHILE_BALANCE_RESERVE", "100"))
         with self.transaction() as conn:
             conn.executescript("""
                 CREATE TABLE IF NOT EXISTS quotes(id TEXT PRIMARY KEY, created REAL, body TEXT, used INTEGER DEFAULT 0);
@@ -166,7 +166,7 @@ class Engine:
         return {**balance, "single_limit_yuan": str(self.single), "daily_limit_yuan": str(self.daily),
                 "balance_reserve_yuan": str(self.reserve), "accounted_today_yuan": str(spent),
                 "daily_available_yuan": str(max(Decimal(0), self.daily-spent)), "blocked": blocked,
-                "low_balance": money(balance["balance_yuan"]) < Decimal("5"),
+                "low_balance": money(balance["balance_yuan"]) < self.reserve,
                 "unresolved": [{"request_id": r[0], "endpoint": r[1], "status": r[2], "reserved_yuan": r[3]} for r in unresolved],
                 "notice": "每次业务调用可能计费。预算仅约束本插件；上游未提供硬性单次扣费上限。"}
 
@@ -255,7 +255,7 @@ class Engine:
                                 "reserved_yuan": str(cap), "charged_yuan": str(actual) if actual is not None else None,
                                 "balance_before_yuan": str(before), "balance_after_yuan": str(remaining) if remaining is not None else None,
                                 "accounted_today_yuan": str(self._spent(conn))},
-                    "notice": "请向用户报告本次实际扣费和最新余额。失败响应也检查费用；余额低于5元请提醒。" +
+                    "notice": f"请向用户报告本次实际扣费和最新余额。失败响应也检查费用；余额低于安全预留金额{self.reserve}元请提醒。" +
                               ("费用不确定或超过预留，已阻止后续付费调用。" if status in ("uncertain", "overrun") else "")}
 
     def resolve(self, request_id: str, verified_charge_yuan: str, confirm_user_verified: bool = False) -> dict:

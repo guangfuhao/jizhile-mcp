@@ -21,7 +21,7 @@ PAGE = """<!doctype html><html lang=zh-CN><meta charset=utf-8><meta name=viewpor
 <h1>极致了 API 配置</h1><p>密钥只保存在本机。保存后临时服务会自动退出。</p>
 <form method=post><label>API Key<input type=password name=api_key required autocomplete=off></label>
 <label>附加码（没有可留空）<input type=password name=verifycode autocomplete=off></label><button>保存</button></form>
-<p>默认：单次1元、每日2元、保留1元余额。所有业务查询先报价，实际费用由服务方结算。</p></html>"""
+<p>默认：单次10元、每日500元、保留100元余额。所有业务查询先报价，实际费用由服务方结算。</p></html>"""
 
 
 class Handler(BaseHTTPRequestHandler):

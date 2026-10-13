@@ -33,7 +33,8 @@ class Upstream:
 def setup(tmp_path):
     u = Upstream()
     c = Client({"api_key":"SENSITIVE-KEY","verifycode":"PRIVATE"}, httpx.MockTransport(u.handle))
-    return u, Engine(c,tmp_path)
+    # These cases exercise configurable limits independently of release defaults.
+    return u, Engine(c,tmp_path,single="1",daily="2",reserve="1")
 
 
 def test_paid_requires_quote_and_confirmation(setup):

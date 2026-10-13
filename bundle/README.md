@@ -1,5 +1,7 @@
 # 极致了 · 公众号与视频号 MCP 插件
 
+**简体中文** | [English](README.en.md)
+
 供 Codex 和兼容 MCP 的 Agent 查询微信公众号、文章和视频号。实现了所给文档的50个操作目录与受预算保护的调用入口；并非每个上游操作都已真实测试。
 
 - [服务方官网](https://www.jzl.com/)
@@ -43,9 +45,9 @@ codex plugin add jizhile-mcp@jizhile-local
 1. `jizhile_balance` 查询余额和预算；`jizhile_compare` 比较适用方案；`jizhile_catalog` 获取参数。
 2. `jizhile_quote_search` 或 `jizhile_quote` 生成10分钟有效的一次性报价，不执行业务查询。Agent须展示本次费用、价格依据、当前及预计余额。
 3. 用户已授权的操作和预算内，调用 `jizhile_execute(quote_id, confirm_charge=true)`。示例/未知价格另需用户明确预留金额并接受价格不确定性。
-4. 向用户报告实际扣费及最新余额。低于5元提醒；未确定的费用不能写成0元。
+4. 向用户报告实际扣费及最新余额。低于安全预留金额时提醒；未确定的费用不能写成0元。
 
-默认限制：**单次1元、每日2元、保留1元余额**，北京时间按日统计。用户明确要求修改后，可配置 `JIZHILE_SINGLE_LIMIT`、`JIZHILE_DAILY_LIMIT`、`JIZHILE_BALANCE_RESERVE`。预算不能通过查询工具参数临时提高。
+默认限制：**单次10元、每日500元、保留100元余额**，北京时间按日统计。每次查询后的预计余额必须至少为100元；例如余额100.50元时，可执行预计0.50元的查询，余额低于100元时会阻止新的付费查询。用户明确要求修改后，可配置 `JIZHILE_SINGLE_LIMIT`、`JIZHILE_DAILY_LIMIT`、`JIZHILE_BALANCE_RESERVE`；已有环境变量配置仍优先生效。预算不能通过查询工具参数临时提高。
 
 同Key共用私密SQLite账本；跨进程串行执行收费请求。凭证用后失效；调用前持久化预留，进程崩溃仍保留待核对状态。成功结果缓存5分钟并标明时间；缓存本次新增业务查询费0元，可用 `fresh=true` 强制刷新。缓存按Key隔离；本地存储路径为 `~/.local/share/jizhile-mcp/<key-fingerprint>/`，可由 `JIZHILE_STATE_DIR` 设置父目录。
 
