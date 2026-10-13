@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+dist/
+*.egg-info/
+.env*
+!.env.example
+credentials.json
+credentials*.json
+private/
+*.sqlite*
+.DS_Store
+docs/api/

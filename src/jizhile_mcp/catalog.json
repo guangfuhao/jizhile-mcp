@@ -1,0 +1,1337 @@
+{
+  "mp_today": {
+    "title": "通过公众号名称/微信Id/链接获取公众号当天发文情况",
+    "path": "/fbmain/monitor/v3/post_condition",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "gh_363b924965e9",
+      "url": "",
+      "nickname": ""
+    },
+    "allowed": [
+      "ghid",
+      "nickname",
+      "url"
+    ],
+    "price_yuan": "0.16",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199748761e0",
+    "freshness": "live",
+    "notes": [
+      "删除、迁移、不存在等错误也可能扣费。",
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_history": {
+    "title": "通过公众号名称/微信Id/链接获取公众号历史发文列表",
+    "path": "/fbmain/monitor/v3/post_history",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "gh_363b924965e9",
+      "url": "",
+      "nickname": "",
+      "offset": ""
+    },
+    "allowed": [
+      "ghid",
+      "nickname",
+      "offset",
+      "url"
+    ],
+    "price_yuan": "0.14",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199746415e0",
+    "freshness": "live",
+    "notes": [
+      "删除、迁移、不存在等错误也可能扣费。",
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_history_pro": {
+    "title": "通过 原始Id/微信号/任意文章链接 获取公众号历史发文列表Pro",
+    "path": "/fbmain/monitor/v3/history_by_ghid",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "gh_363b924965e9",
+      "url": "",
+      "nickname": "",
+      "offset": ""
+    },
+    "allowed": [
+      "ghid",
+      "nickname",
+      "offset",
+      "url"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/368137945e0",
+    "freshness": "live",
+    "notes": [
+      "删除、迁移、不存在等错误也可能扣费。",
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "mp_picture_history": {
+    "title": "通过 原始Id/微信号/任意文章链接 获取公众号贴图类型文章",
+    "path": "/fbmain/monitor/v3/history_by_ghid_tietu",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "gh_363b924965e9",
+      "url": "",
+      "nickname": "",
+      "offset": ""
+    },
+    "allowed": [
+      "ghid",
+      "nickname",
+      "offset",
+      "url"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/512089507e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "picture_account_history": {
+    "title": "获取贴图号历史文章",
+    "path": "/fbmain/monitor/v3/history_by_ghid_tietuhao",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "phacct_3e27f3dbdf1b",
+      "url": "",
+      "offset": ""
+    },
+    "allowed": [
+      "ghid",
+      "offset",
+      "url"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/519312933e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "mp_metrics": {
+    "title": "获取文章阅读、点赞、在看",
+    "path": "/fbmain/monitor/v3/read_zan",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MTM5NjUzNA==&mid=2652494556&idx=1&sn=4995d845ad2ef1205136936f65ae4adc&chksm=bd5b5d058a2cd4139bbd92c8cd23d52f65ef260eedf8cbc6d25a4ab0992f08d01da81#rd"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": "0.02",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199750063e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_metrics_pro": {
+    "title": "获取文章阅读、点赞、在看、转发、收藏、评论 Pro",
+    "path": "/fbmain/monitor/v3/read_zan_pro",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MTM5NjUzNA==&mid=2652494556&idx=1&sn=4995d845ad2ef1205136936f65ae4adc&chksm=bd5b5d058a2cd4139bbd92c8cd23d52f65ef260eedf8cbc6d25a4ab0992f08d01da81#rd"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": "0.04",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/204205487e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_detail": {
+    "title": "获取文章详情(纯文本,富文本,不带html文章格式)",
+    "path": "/fbmain/monitor/v3/article_detail",
+    "method": "GET",
+    "encoding": "query",
+    "fixed": {
+      "mode": "2"
+    },
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s/NrR7SnT8DUwufP88uUESjg",
+      "mode": "2"
+    },
+    "allowed": [
+      "mode",
+      "url"
+    ],
+    "price_yuan": "0.03",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/220474677e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_html": {
+    "title": "获取文章正文 HTML",
+    "path": "/fbmain/monitor/v3/article_html",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=2666900240&idx=1&sn=a130a51c16cbe0169dd776a470e63bba&chksm=bc1219084e2f51c60f29a7a5d8c25e6ed32554270bf36dbb032fdc6d39d05d2c24742d3367d2#rd"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": "0.02",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199736592e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_detail_pro": {
+    "title": "获取文章详情Pro",
+    "path": "/fbmain/monitor/v3/article_detail",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MTM5NjUzNA==&mid=2652494556&idx=1&sn=4995d845ad2ef1205136936f65ae4adc&chksm=bd5b5d058a2cd4139bbd92c8cd23d52f65ef260eedf8cbc6d25a4ab0992f08d01da81#rd"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": "0.025",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199752498e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_comments": {
+    "title": "获取公众号文章评论Pro",
+    "path": "/fbmain/monitor/v3/article_comment2",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MzI3OTE0NDIyNw==&mid=2247497162&idx=1&sn=742958142ac23f382f7e2873611a3fd9&chksm=ea8d0a49d9e29a19b7eeb150246e15de297f4cbfebbc4403e143c2caf96f5563849b4e1f9f08#rd",
+      "buffer": ""
+    },
+    "allowed": [
+      "buffer",
+      "url",
+      "offset"
+    ],
+    "price_yuan": "0.06",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199758598e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_replies": {
+    "title": "获取公众号文章二级评论",
+    "path": "/fbmain/monitor/v3/article_sub_comment",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MzI3OTE0NDIyNw==&mid=2247497162&idx=1&sn=742958142ac23f382f7e2873611a3fd9&chksm=ea8d0a49d9e29a19b7eeb150246e15de297f4cbfebbc4403e143c2caf96f5563849b4e1f9f08#rd",
+      "content_id": "12393667065104302166"
+    },
+    "allowed": [
+      "content_id",
+      "url",
+      "offset",
+      "buffer"
+    ],
+    "price_yuan": "0.06",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/445204557e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_article_info": {
+    "title": "获取公众号文章阅读、点赞、名字，文章标题和URL等信息",
+    "path": "/fbmain/monitor/v3/article_info",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MTM5NjUzNA==&mid=2652494556&idx=1&sn=4995d845ad2ef1205136936f65ae4adc&chksm=bd5b5d058a2cd4139bbd92c8cd23d52f65ef260eedf8cbc6d25a4ab0992f08d01da81#rd"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": "0.05",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199766293e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_detail_video": {
+    "title": "获取文章详情(视频可下载)",
+    "path": "/fbmain/monitor/v3/article_detail_video",
+    "method": "POST",
+    "encoding": "query",
+    "fixed": {
+      "mode": "1"
+    },
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=2666900240&idx=1&sn=a130a51c16cbe0169dd776a470e63bba&chksm=bc1219084e2f51c60f29a7a5d8c25e6ed32554270bf36dbb032fdc6d39d05d2c24742d3367d2#rd",
+      "mode": "1"
+    },
+    "allowed": [
+      "mode",
+      "url"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/402258301e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_related_words": {
+    "title": "获取公众号文章关联词",
+    "path": "/fbmain/monitor/v3/article_relate_words",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "link": "https://mp.weixin.qq.com/s/K3OqCyNqZNSOeZYPZ_HoVw"
+    },
+    "allowed": [
+      "link"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/478244016e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_search_articles": {
+    "title": "搜一搜 实时搜全部 (公众号文章)(可排序)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 1,
+      "search_type": 1
+    },
+    "example_params": {
+      "mode": 1,
+      "keyword": "人民日报",
+      "search_type": 1,
+      "publish_time_type": 1,
+      "sort_type": 1,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset",
+      "publish_time_type",
+      "search_type",
+      "sort_type"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454005291e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "mp_search_articles_category": {
+    "title": "搜一搜 实时搜文章类目 (公众号文章)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 2,
+      "Sub_search_type": 2
+    },
+    "example_params": {
+      "mode": 2,
+      "keyword": "人民日报",
+      "BusinessType": 2,
+      "Sub_search_type": 2,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454005293e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "mp_search_pictures": {
+    "title": "搜一搜 实时搜贴图类型文章(可排序)",
+    "path": "/fbmain/monitor/v3/web_search_tietu",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "keyword": "人民日报",
+      "sort_type": 2,
+      "Offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "Offset",
+      "cookies_buffer",
+      "keyword",
+      "sort_type"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/520000428e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "search_suggestions": {
+    "title": "搜一搜 实时搜搜索推荐词",
+    "path": "/fbmain/monitor/v3/web_search_sug",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "BusinessType": 2
+    },
+    "example_params": {
+      "keyword": "人民日报",
+      "BusinessType": 2
+    },
+    "allowed": [
+      "BusinessType",
+      "keyword"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/463516678e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "search_miniapps": {
+    "title": "搜一搜 实时搜账号类目(小程序账号)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 262208,
+      "Sub_search_type": 1
+    },
+    "example_params": {
+      "mode": 2,
+      "keyword": "人民日报",
+      "BusinessType": 262208,
+      "Sub_search_type": 1,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset"
+    ],
+    "price_yuan": "1",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/456895413e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "search_wx_index": {
+    "title": "搜一搜 实时搜微信指数类目",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 8192,
+      "sub_search_type": 0
+    },
+    "example_params": {
+      "keyword": "人民日报",
+      "mode": 2,
+      "BusinessType": 8192,
+      "sub_search_type": 0
+    },
+    "allowed": [
+      "BusinessType",
+      "keyword",
+      "mode",
+      "sub_search_type"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/456895415e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "search_all": {
+    "title": "搜一搜 实时搜汇总版（包含mode1和mode2）",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "keyword": "人民日报",
+      "search_type": 1,
+      "publish_time_type": 1,
+      "sort_type": 1,
+      "currentPage": 1,
+      "cookies_buffer": "",
+      "mode": 1,
+      "BusinessType": 2,
+      "Sub_search_type": 0,
+      "offset": 0
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset",
+      "publish_time_type",
+      "search_type",
+      "sort_type"
+    ],
+    "price_yuan": null,
+    "price_status": "dynamic",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454005170e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "mp_original_count": {
+    "title": "获取公众号原创文章数",
+    "path": "/fbmain/monitor/v3/original_article_count",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "ghid": "gh_d690baa54b14",
+      "url": ""
+    },
+    "allowed": [
+      "ghid",
+      "url"
+    ],
+    "price_yuan": "1.0",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/463107539e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_owner": {
+    "title": "获取公众号主体信息",
+    "path": "/fbmain/monitor/v3/principal_info",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "biz": "",
+      "url": "https://mp.weixin.qq.com/s?__biz=MzI3OTE0NDIyNw==&mid=2247497162&idx=1&sn=742958142ac23f382f7e2873611a3fd9&chksm=ea8d0a49d9e29a19b7eeb150246e15de297f4cbfebbc4403e143c2caf96f5563849b4e1f9f08#rd",
+      "wxid": ""
+    },
+    "allowed": [
+      "biz",
+      "url",
+      "wxid"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199757379e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "mp_profile": {
+    "title": "获取公众号头像、账号类型、公众号简介等基础信息",
+    "path": "/fbmain/monitor/v3/avatar_type",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "name": "rmrbwx"
+    },
+    "allowed": [
+      "name"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199760628e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "mp_estimates": {
+    "title": "获取公众号的预估活跃粉丝、头条平均阅读、头条平均点赞、周发文量、最新发文时间、极致了指数",
+    "path": "/fbmain/monitor/v3/Keyverifycode",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "",
+      "name": "人民日报",
+      "ghid": "",
+      "wxid": ""
+    },
+    "allowed": [
+      "ghid",
+      "name",
+      "url",
+      "wxid"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199761469e0",
+    "freshness": "database",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_owner_search_live": {
+    "title": "主体名下公众号搜索（实时）",
+    "path": "/fbmain/monitor/v3/web_search_owner_mp",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "business_type": "1"
+    },
+    "example_params": {
+      "keyword": "人民日报",
+      "offset": 0,
+      "cookies_buffer": "",
+      "currenPage": 1,
+      "business_type": "1"
+    },
+    "allowed": [
+      "business_type",
+      "cookies_buffer",
+      "currenPage",
+      "keyword",
+      "offset"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/470624095e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_owner_search_db": {
+    "title": "主体名下公众号搜索（数据库）",
+    "path": "/fbmain/monitor/v3/owner_search_mp",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "name": ""
+    },
+    "allowed": [
+      "name"
+    ],
+    "price_yuan": "7.5",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/212866367e0",
+    "freshness": "database",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_search_db": {
+    "title": "根据关键字查询公众号（包含订阅号和服务号）",
+    "path": "/fbmain/monitor/v3/wx_account/search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 1
+    },
+    "example_params": {
+      "keyword": "人民日报",
+      "page": "1",
+      "size": "20",
+      "mode": 1
+    },
+    "allowed": [
+      "keyword",
+      "mode",
+      "page",
+      "size"
+    ],
+    "price_yuan": "0.2",
+    "price_status": "documented",
+    "billing_unit": "item",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199762047e0",
+    "freshness": "database",
+    "notes": [
+      "0.20元/条；文档每页20条，size缩小是否生效未验证，因此按至少20条预留4元。"
+    ]
+  },
+  "mp_search_accounts": {
+    "title": "搜一搜 搜公众号",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 1,
+      "Sub_search_type": 1
+    },
+    "example_params": {
+      "mode": 2,
+      "keyword": "人民日报",
+      "BusinessType": 1,
+      "Sub_search_type": 1,
+      "offset": 0,
+      "currentPage": 1,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset"
+    ],
+    "price_yuan": "1",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/317874204e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "channel_search_videos": {
+    "title": "搜一搜 实时搜全部 (视频号视频) (可排序)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 1,
+      "search_type": 2
+    },
+    "example_params": {
+      "mode": 1,
+      "keyword": "人民日报",
+      "search_type": 2,
+      "publish_time_type": 1,
+      "sort_type": 1,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset",
+      "publish_time_type",
+      "search_type",
+      "sort_type"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454008225e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "channel_search_accounts": {
+    "title": "搜一搜 实时搜视频类目 (视频号账号)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 7,
+      "Sub_search_type": 1
+    },
+    "example_params": {
+      "mode": 2,
+      "keyword": "人民日报",
+      "BusinessType": 7,
+      "Sub_search_type": 1,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset"
+    ],
+    "price_yuan": "1",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454541896e0",
+    "freshness": "live",
+    "notes": []
+  },
+  "channel_search_videos_category": {
+    "title": "搜一搜 实时搜视频类目 (视频号视频)",
+    "path": "/fbmain/monitor/v3/web_search",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "mode": 2,
+      "BusinessType": 7,
+      "Sub_search_type": 2
+    },
+    "example_params": {
+      "mode": 2,
+      "keyword": "人民日报",
+      "BusinessType": 7,
+      "Sub_search_type": 2,
+      "currentPage": 1,
+      "offset": 0,
+      "cookies_buffer": ""
+    },
+    "allowed": [
+      "BusinessType",
+      "Sub_search_type",
+      "cookies_buffer",
+      "currentPage",
+      "keyword",
+      "mode",
+      "offset"
+    ],
+    "price_yuan": "1",
+    "price_status": "documented",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/454541709e0",
+    "freshness": "live",
+    "notes": [
+      "字段说明误写BusinessType=2；请求示例为7，使用示例值。"
+    ]
+  },
+  "channel_videos": {
+    "title": "获取单个视频号作品列表（链接不可下载 可翻页）",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "form",
+    "fixed": {
+      "type": "1"
+    },
+    "example_params": {
+      "v2_name": "v2_060000231003b20faec8c7e78d10cad5c603e531b0774aeb3a8ce640b431c05e75896eabf769@finder",
+      "type": "1",
+      "last_buffer": ""
+    },
+    "allowed": [
+      "last_buffer",
+      "type",
+      "v2_name"
+    ],
+    "price_yuan": "0.2",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/209503843e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_replays": {
+    "title": "获取视频号直播回放记录",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "form",
+    "fixed": {
+      "type": "8"
+    },
+    "example_params": {
+      "v2_name": "v2_060000231003b20faec8c7e78d10cad5c603e531b0774aeb3a8ce640b431c05e75896eabf769@finder",
+      "type": "8",
+      "last_buffer": ""
+    },
+    "allowed": [
+      "last_buffer",
+      "type",
+      "v2_name"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/357729356e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "channel_find_id": {
+    "title": "获取指定视频号ID",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "query",
+    "fixed": {
+      "type": "6"
+    },
+    "example_params": {
+      "type": "6",
+      "keywords": "王者荣耀"
+    },
+    "allowed": [
+      "keywords",
+      "type"
+    ],
+    "price_yuan": "0.2",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/226936157e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_download": {
+    "title": "获取视频号可下载链接",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "query",
+    "fixed": {
+      "type": "3"
+    },
+    "example_params": {
+      "object_id": "14462543356698040491",
+      "object_nonce_id": "",
+      "type": "3"
+    },
+    "allowed": [
+      "object_id",
+      "object_nonce_id",
+      "type"
+    ],
+    "price_yuan": "0.03",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/209532597e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。",
+      "下载链接具有时效；不自动下载媒体。"
+    ]
+  },
+  "channel_convert_id": {
+    "title": "export_id转object_id",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 7
+    },
+    "example_params": {
+      "type": 7,
+      "export_id": "export/UzFfAgtgekIEAQAAAAAAnNgTS8uKMAAAAAstQy6ubaLX4KHWvLEZgBPEnqJsIzprE_mJzNPgMIoCiBgqw9m_Usm6Iq8QgtRc"
+    },
+    "allowed": [
+      "export_id",
+      "type"
+    ],
+    "price_yuan": "0.05",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/302964463e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_bound_channel": {
+    "title": "通过公众号原始id获取绑定的视频号",
+    "path": "/fbmain/monitor/v3/history_by_ghid",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "get_finder": 1
+    },
+    "example_params": {
+      "ghid": "gh_363b924965e9",
+      "url": "",
+      "get_finder": 1
+    },
+    "allowed": [
+      "get_finder",
+      "ghid",
+      "url"
+    ],
+    "price_yuan": "0.5",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/368651318e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_metrics": {
+    "title": "获取视频号视频点赞数、评论数等互动信息",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 9
+    },
+    "example_params": {
+      "object_id": "",
+      "export_id": "export/UzFfBgAAxPynZBYfOFnOjMzT4DCJBQpfMJEwrvT6DlVBeCPXNg",
+      "type": 9
+    },
+    "allowed": [
+      "export_id",
+      "object_id",
+      "type"
+    ],
+    "price_yuan": "0.04",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/389255941e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_comments": {
+    "title": "获取视频号视频一级评论",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 10
+    },
+    "example_params": {
+      "object_id": "14462543356698040491",
+      "object_nonce_id": "",
+      "type": 10,
+      "last_buffer": ""
+    },
+    "allowed": [
+      "last_buffer",
+      "object_id",
+      "object_nonce_id",
+      "type"
+    ],
+    "price_yuan": "0.03",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/389257187e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_replies": {
+    "title": "获取视频号视频二级评论",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 11
+    },
+    "example_params": {
+      "object_id": "14678671171815606699",
+      "root_comment_id": "14678843260955331089",
+      "type": 11,
+      "last_buffer": ""
+    },
+    "allowed": [
+      "last_buffer",
+      "object_id",
+      "root_comment_id",
+      "type"
+    ],
+    "price_yuan": "0.03",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/446364600e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_from_link": {
+    "title": "通过视频链接获取视频号基础信息",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": "12"
+    },
+    "example_params": {
+      "feed_info": "https://weixin.qq.com/sph/Aaajs9Yoiy",
+      "type": "12"
+    },
+    "allowed": [
+      "feed_info",
+      "type"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/447634016e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_title": {
+    "title": "获取视频号标题",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "form",
+    "fixed": {
+      "type": "13"
+    },
+    "example_params": {
+      "object_id": "14462543356698040491",
+      "object_nonce_id": "",
+      "type": "13"
+    },
+    "allowed": [
+      "object_id",
+      "object_nonce_id",
+      "type"
+    ],
+    "price_yuan": "0.2",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/460453061e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_download_v2": {
+    "title": "视频号可下载链接V2",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 16
+    },
+    "example_params": {
+      "object_id": "14940144898316503592",
+      "type": 16
+    },
+    "allowed": [
+      "object_id",
+      "type"
+    ],
+    "price_yuan": "0.2",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/472855154e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_short_link": {
+    "title": "export_id 获取视频号视频短链接",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 17
+    },
+    "example_params": {
+      "type": 17,
+      "export_id": "export/UzFfBgAAxOehPCIbU1bTjMzT4DCJf5ZJ9i-cMUV1WA6wBB3nOA",
+      "object_id": "14987085452205361181"
+    },
+    "allowed": [
+      "export_id",
+      "object_id",
+      "type"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/475455174e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "channel_profile": {
+    "title": "视频号博主信息",
+    "path": "/fbmain/monitor/v3/wxvideo",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {
+      "type": 18
+    },
+    "example_params": {
+      "v2_name": "v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder",
+      "type": 18
+    },
+    "allowed": [
+      "type",
+      "v2_name"
+    ],
+    "price_yuan": "0.1",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/493846428e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_convert_link": {
+    "title": "公众号文章链接长短互转",
+    "path": "/fbmain/monitor/v3/link/short2long",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "link": "https://mp.weixin.qq.com/s/yZKzTuuol-1M0zFKlJqSqg"
+    },
+    "allowed": [
+      "link"
+    ],
+    "price_yuan": "0.05",
+    "price_status": "example",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199751449e0",
+    "freshness": "live",
+    "notes": [
+      "价格来自响应示例，不能视为固定单价；需用户指定本次预留上限并接受价格不确定性。"
+    ]
+  },
+  "mp_sogou_link": {
+    "title": "搜狗临时链接转永久链接",
+    "path": "/fbmain/monitor/v3/sougou_link",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1736318606&ver=5737&signature=P6GMZIfRaRV493cyXS032w5ZGSSIRhiLZLZLWQrt9mew*UrGVEBY*vLnQVkHkUWMl08LFpDFAq0GXEsBGUz3WtaVG-w5IABvb5arIjBkQ6NO41T4zZ8VuvbxBfrSDv81&new=1"
+    },
+    "allowed": [
+      "url"
+    ],
+    "price_yuan": null,
+    "price_status": "unknown",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199771856e0",
+    "freshness": "live",
+    "notes": [
+      "文档未明确价格，默认阻止付费调用。"
+    ]
+  },
+  "balance": {
+    "title": "获取api余额",
+    "path": "/fbmain/monitor/v3/get_remain_money",
+    "method": "POST",
+    "encoding": "json",
+    "fixed": {},
+    "example_params": {},
+    "allowed": [],
+    "price_yuan": "0",
+    "price_status": "balance_probe",
+    "billing_unit": "request",
+    "source": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/247333202e0",
+    "freshness": "live",
+    "notes": []
+  }
+}

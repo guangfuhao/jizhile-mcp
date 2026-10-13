@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jizhile-mcp"
+version = "0.1.0"
+description = "Budget-aware WeChat official-account and Channels API tools"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["httpx>=0.28,<1", "mcp>=1.20,<2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+jizhile-mcp = "jizhile_mcp.server:main"
+jizhile-configure = "jizhile_mcp.credentials:main"
+jizhile-setup-local = "jizhile_mcp.setup_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jizhile_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

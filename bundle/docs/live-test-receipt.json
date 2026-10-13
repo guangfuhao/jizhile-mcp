@@ -1,0 +1,44 @@
+{
+  "transport": "MCP stdio",
+  "live": true,
+  "queries": [
+    {
+      "kind": "mp_articles",
+      "status": "ok",
+      "billing": {
+        "price_status": "documented",
+        "expected_cost_yuan": "0.5",
+        "reserved_yuan": "0.5",
+        "charged_yuan": "0.5"
+      },
+      "repeat_query_added_charge_yuan": "0",
+      "content_items": 15
+    },
+    {
+      "kind": "channel_videos",
+      "status": "ok",
+      "billing": {
+        "price_status": "documented",
+        "expected_cost_yuan": "0.5",
+        "reserved_yuan": "0.5",
+        "charged_yuan": "0.5"
+      },
+      "repeat_query_added_charge_yuan": "0",
+      "content_items": 12
+    }
+  ],
+  "tools": [
+    "jizhile_settings",
+    "jizhile_balance",
+    "jizhile_catalog",
+    "jizhile_compare",
+    "jizhile_quote",
+    "jizhile_quote_search",
+    "jizhile_execute",
+    "jizhile_reconcile",
+    "jizhile_setup_local"
+  ],
+  "stdio_session_closed": true,
+  "date": "2026-10-13",
+  "redacted": "Personal account balances and content samples omitted."
+}
