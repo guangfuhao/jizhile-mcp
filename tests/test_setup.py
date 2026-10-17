@@ -7,13 +7,13 @@ import httpx
 import pytest
 
 
-@pytest.mark.parametrize("provider",["jizhile","ark"])
+@pytest.mark.parametrize("provider",["jizhile","ark","yddm"])
 def test_private_setup_save_origin_check_and_process_exit(tmp_path,provider):
     rendezvous=tmp_path/"setup-url"
     config=tmp_path/"credentials.json"
     process=subprocess.Popen([sys.executable,"-m","jizhile_mcp.setup_server","--serve","--no-open",
                               "--timeout","10","--rendezvous",str(rendezvous),"--provider",provider],
-                             env={**os.environ,"JIZHILE_CONFIG_FILE":str(config),"JIZHILE_ARK_CONFIG_FILE":str(config)},
+                             env={**os.environ,"JIZHILE_CONFIG_FILE":str(config),"JIZHILE_ARK_CONFIG_FILE":str(config),"JIZHILE_YDDM_CONFIG_FILE":str(config)},
                              stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     try:
         for _ in range(100):
@@ -26,6 +26,8 @@ def test_private_setup_save_origin_check_and_process_exit(tmp_path,provider):
             assert page.status_code==200
             if provider=="ark":
                 assert "火山方舟转写配置" in page.text and "name=verifycode" not in page.text
+            if provider=="yddm":
+                assert "云端点 API 配置" in page.text and "name=units_confirmed" in page.text and "name=verifycode" not in page.text
             denied=client.post(url,data={"api_key":"fake-local-test"},headers={"Origin":"https://untrusted.invalid"})
             assert denied.status_code==403 and not config.exists()
             saved=client.post(url,data={"api_key":"fake-local-test"})

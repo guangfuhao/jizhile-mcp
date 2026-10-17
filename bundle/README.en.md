@@ -1,12 +1,30 @@
-# Jizhile · WeChat Official Accounts and Channels MCP Plugin
+# Jizhile · Media and Commerce MCP Plugin
 
 [简体中文](README.md) | **English**
 
-A budget-aware MCP plugin for Codex and compatible agents. Query WeChat Official Accounts, articles, and Channels through Jizhile's third-party API, with pricing comparisons, balance notices, and spending guards. The query catalog covers 50 documented operations; only the article and video search flows in that catalog have been verified live. The integrated audio transcription flow has a separate three-video acceptance receipt below.
+A budget-aware MCP plugin for Codex and compatible agents. Query WeChat Official Accounts, articles, and Channels through Jizhile's third-party API, with pricing comparisons, balance notices, and spending guards. The expanded catalog contains 303 entries, including 291 documented operations and 12 retained legacy paths; only the article and video search flows in that catalog have been verified live. The integrated audio transcription flow has a separate three-video acceptance receipt below.
 
 - [Provider website](https://www.jzl.com/)
 - [Official API documentation](https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83)
 - API host: `https://www.dajiala.com`. This is an independent community client.
+
+## All-media and commerce APIs
+
+All 241 operations in the [new Cloud Point documentation](https://s.apifox.cn/6faad22e-3ea1-4934-8926-69d0efb2dce1/llms.txt) are represented by request adapters, alongside the original 50 WeChat operations: 291 documented operations, including two balance probes. The catalog also retains 12 workbook paths absent from the new docs, for a total of 303 entries. Two Xingtu operations remain disabled because the supplied tariff sheet marks them unavailable. There are 289 documented, non-disabled operations including both balance probes; this is not a claim of individual paid live acceptance. See the [coverage report](docs/tariff-coverage.md).
+
+Cloud Point requests use `https://api.yddm.com` and a separate `X-API-Key`. Use `jizhile_setup_local(provider="yddm")` or `uv run jizhile-configure-yddm` to configure it locally. The key is stored in `~/.config/jizhile-mcp/yddm-credentials.json` with mode 0600. Original Jizhile and Ark keys are never reused automatically.
+
+Confirm the units per CNY for both business `data.cost/data.balance` and profile `data.balance_cents`. The UI's reference value of 1000 comes from comparing the documented 100 points with the workbook's CNY 0.1; verify both conversions in the account console before checking the confirmation box. The field name alone does not establish cents. Unconfirmed units block paid quotes, while the profile probe can return a raw balance. Environment overrides: `JIZHILE_YDDM_API_KEY`, `JIZHILE_YDDM_CONFIG_FILE`, `JIZHILE_YDDM_UNITS_PER_YUAN`, `JIZHILE_YDDM_BALANCE_UNITS_PER_YUAN`, and `JIZHILE_YDDM_UNITS_CONFIRMED=true`.
+
+Use `jizhile_catalog` with platform category, keyword, offset and limit; inspect an endpoint for its schema, required fields, enums and source. `callable_only=true` filters documented, non-disabled entries. Compare arbitrary candidate IDs with `jizhile_compare(intent="custom", candidates=[...])`. Quotes select the provider automatically; `yddm:` quote IDs route through the existing execution tool. There are still 16 MCP tools in the same plugin.
+
+Jizhile and Cloud Point queries share a **CNY 500 daily total**, with a CNY 10 single-request cap and a separate CNY 100 reserve in each account. Shared locking and aggregation apply within the same state root across keys/processes; Ark transcription remains separate. Account balances are not pooled. Async submission, status, result and acceptance steps each require their own quote; there is no automatic polling or retry.
+
+Parameters follow the OpenAPI JSON schemas, including arrays, objects, nulls and string-safe long IDs. Six empty or incorrect schemas are filled from explicit same-page request examples; additional schema/example corrections appear in `contract_notes`. No example targets are supplied implicitly. PDD result lookup is corrected to `GET /pdd/async_get_comment_task`, with its documented JSON body.
+
+The dated tariff snapshot preserves all 290 source records. Conditional rates use the higher tier; conflicts use the higher reservation. `tariff_snapshot`, `tariff_range`, `tariff_conflict`, and `unknown` require an explicit cap and acceptance of uncertainty. Confirmed point-to-CNY conversions with a documented point rate use `documented_points`. Changes invalidate quotes; unit changes against an existing billing ledger block further paid requests pending an accounting review. Missing costs, overruns and network failures remain uncertain and never trigger an automatic retry.
+
+330 automated tests passed, including mocked HTTP roundtrips for 238 non-disabled Cloud Point business operations. A real key verified authentication, balance retrieval, and the reserve guard. The account balance was below the configured reserve, so **no real paid Cloud Point business request was submitted**. See the [sanitized receipt](docs/cloud-test-receipt.json); profile access is not business-data acceptance.
 
 ## Features
 
@@ -101,7 +119,7 @@ Example requests:
 - “Find videos about Beijing housing. Compare prices and use at most one page within a CNY 1 budget.”
 - “Compare article-content endpoint prices without submitting a paid query.”
 
-Long IDs must be strings to avoid JavaScript integer precision loss. The catalog and source links are in `src/jizhile_mcp/catalog.json` and `docs/sources.json`. Document inconsistencies are noted in the catalog; for example, Channel video search uses `BusinessType=7` from the request example despite a conflicting field description.
+Consult current quote metadata and the dated tariff snapshot before relying on any historical rate above. Long IDs must be strings to avoid JavaScript integer precision loss. Original contracts, cloud contracts and tariffs are in `src/jizhile_mcp/catalog.json`, `cloud_contracts.json` and `tariff_snapshot.json`; provenance and coverage are in `docs/sources.json` and `docs/tariff-coverage.json`. Document inconsistencies are noted in the catalog; for example, Channel video search uses `BusinessType=7` from the request example despite a conflicting field description.
 
 ## Verification and releases
 

@@ -185,7 +185,7 @@ def test_cheapest_only_with_freshness_and_scope():
     r=recommend("mp_accounts");assert r["lowest_estimate"]=="mp_search_accounts"
     r=recommend("channel_videos");assert r["lowest_estimate"]=="channel_search_videos"
     assert recommend("mp_today")["lowest_estimate"]=="mp_today"
-    assert len(CATALOG)==50
+    assert len(CATALOG)==303
     assert CATALOG["channel_search_videos_category"]["fixed"]["BusinessType"]==7
 
 

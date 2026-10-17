@@ -20,4 +20,6 @@ for name in ("run_mcp.sh", "mcp_smoke.py"):
 shutil.copy2(ROOT / "docs/sources.json", out / "docs/sources.json")
 shutil.copy2(ROOT / "docs/live-test-receipt.json", out / "docs/live-test-receipt.json")
 shutil.copy2(ROOT / "docs/transcription-test-receipt.json", out / "docs/transcription-test-receipt.json")
+for name in ("tariff-coverage.json", "tariff-coverage.md", "cloud-test-receipt.json"):
+    shutil.copy2(ROOT / "docs" / name, out / "docs" / name)
 print(out)

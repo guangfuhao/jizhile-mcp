@@ -52,5 +52,44 @@
     "mp_convert_link": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199751449e0",
     "mp_sogou_link": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/199771856e0",
     "balance": "https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83/247333202e0"
+  },
+  "tariff_snapshot": {
+    "imported_date": "2026-10-16",
+    "price_date": "2026-03-05",
+    "source_name": "全媒体-API接口资费标准+电商20260305(1)(1).xlsx",
+    "sha256": "95367f34b11186dfbc6ad9a756d446cc9adc3e7f2c077adee34e979410752ebc",
+    "coverage": "tariff-coverage.json",
+    "summary": {
+      "operations": 303,
+      "documented_contracts": 291,
+      "missing_contracts": 12,
+      "unavailable": 2,
+      "callable_contracts": 289,
+      "cloud_contracts": 241,
+      "cloud_retrieved_date": "2026-10-17",
+      "workbook_records": 290,
+      "primary_records": 245,
+      "price_date": "2026-03-05",
+      "imported_date": "2026-10-16"
+    }
+  },
+  "cloud_documentation": {
+    "index_url": "https://s.apifox.cn/6faad22e-3ea1-4934-8926-69d0efb2dce1/llms.txt",
+    "retrieved_date": "2026-10-17",
+    "operations": 241,
+    "contracts": "../src/jizhile_mcp/cloud_contracts.json",
+    "summary": {
+      "operations": 303,
+      "documented_contracts": 291,
+      "missing_contracts": 12,
+      "unavailable": 2,
+      "callable_contracts": 289,
+      "cloud_contracts": 241,
+      "cloud_retrieved_date": "2026-10-17",
+      "workbook_records": 290,
+      "primary_records": 245,
+      "price_date": "2026-03-05",
+      "imported_date": "2026-10-16"
+    }
   }
 }

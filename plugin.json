@@ -1,23 +1,36 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "jizhile-mcp",
-  "version": "0.2.0",
-  "description": "公众号与视频号查询、视频口播转写及批量处理，支持比价、计费提醒、预算与重复扣费保护。",
-  "author": {"name": "Jizhile MCP community"},
+  "version": "0.3.0",
+  "description": "公众号、视频号、全媒体与电商API查询，独立密钥、统一查询预算、接口比价与批量口播转写。",
+  "author": {
+    "name": "Jizhile MCP community"
+  },
   "homepage": "https://github.com/guangfuhao/jizhile-mcp",
   "repository": "https://github.com/guangfuhao/jizhile-mcp",
   "license": "MIT",
   "skills": "./skills/",
-  "keywords": ["wechat", "channels", "jizhile", "budget", "mcp"],
+  "keywords": [
+    "wechat",
+    "channels",
+    "jizhile",
+    "budget",
+    "mcp",
+    "social-media",
+    "ecommerce"
+  ],
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "极致了 · 公众号与视频号",
-        "shortDescription": "公众号与视频号查询，批量口播转写与费用保护",
-        "longDescription": "50项查询操作与同插件内的批量视频口播转写，支持ffmpeg音轨分离、火山模型、进度和断点续跑；先提示费用，在授权预算内执行。",
+        "displayName": "极致了 · 全媒体与电商",
+        "shortDescription": "全媒体与电商API、计费保护及批量口播转写",
+        "longDescription": "同一插件集成原公众号/视频号50项与云端点241项文档操作；303项目录包含12个旧路径及2个禁用项，独立密钥和余额、共同每日查询预算、接口比价与批量口播转写。",
         "developerName": "Jizhile MCP community",
         "category": "Developer tools",
-        "capabilities": ["Read", "Write"],
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
         "websiteURL": "https://www.jzl.com",
         "brandColor": "#1769E0"
       },

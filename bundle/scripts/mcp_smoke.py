@@ -48,7 +48,23 @@ async def run(live=False):
                 if data.get("blocked") or data.get("ok") is False:raise RuntimeError(json.dumps(data,ensure_ascii=False))
                 return data
             cat=await call("jizhile_catalog",{})
-            assert len(cat["operations"])==50
+            assert cat["total"]==303
+            assert cat['summary']['documented_contracts']==291
+            assert cat['summary']['missing_contracts']==12
+            report['catalog_summary']=cat['summary']
+            tail=await call('jizhile_catalog',{'offset':300})
+            assert len(tail['operations'])==3 and tail['next_offset'] is None
+            pending=await call('jizhile_catalog',{'endpoint':'xhs_note_detail6'})
+            assert pending['contract_status']=='missing'
+            cloud=await call('jizhile_catalog',{'endpoint':'douyin_general_search'})
+            assert cloud['contract_status']=='documented' and cloud['provider']=='yddm'
+            unavailable=await call('jizhile_catalog',{'endpoint':'xingtu_external_multi_get_item'})
+            assert unavailable['availability']=='unavailable'
+            blocked=await session.call_tool('jizhile_quote',{'endpoint':'xhs_note_detail6','params':{},'max_cost_yuan':'1'})
+            body=blocked.structuredContent
+            if body is None:
+                body=json.loads(next(x.text for x in blocked.content if x.type=='text'))
+            assert body['blocked'] and not body['ok']
             compare=await call("jizhile_compare",{"intent":"channel_videos"})
             assert compare["lowest_estimate"]=="channel_search_videos"
             if live:

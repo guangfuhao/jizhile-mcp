@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-17",
+  "transport": "MCP stdio",
+  "live_business_calls": 0,
+  "authentication_verified": true,
+  "unit_conversion_user_confirmed": true,
+  "reserve_guard_verified": true,
+  "stdio_session_closed": true,
+  "business_smoke_status": "blocked_by_existing_balance_reserve",
+  "business_query_success_verified": false,
+  "limits": {
+    "single_yuan": "10",
+    "daily_combined_queries_yuan": "500",
+    "reserve_per_account_yuan": "100"
+  },
+  "limitations": [
+    "云端点余额低于既定安全预留，因此没有真实付费业务查询，不把鉴权/余额验证当作业务数据验收。",
+    "238个可执行云端点业务契约经模拟HTTP验证，未逐项对上游付费实测。",
+    "12个资费表旧路径未列于新文档，2个星图操作仍按表格不可用标记拦截。"
+  ]
+}

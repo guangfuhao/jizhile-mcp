@@ -49,6 +49,13 @@ class Handler(BaseHTTPRequestHandler):
         if self.server.provider == "ark":
             page = page.replace("极致了 API 配置", "火山方舟转写配置").replace("默认：单次10元、每日500元、保留100元余额。", "火山转写另行计费，账户余额须在火山控制台确认。")
             page = page.replace('<label>附加码（没有可留空）<input type=password name=verifycode autocomplete=off></label>', '')
+        elif self.server.provider == "yddm":
+            page = page.replace("极致了 API 配置", "云端点 API 配置")
+            page = page.replace('<label>附加码（没有可留空）<input type=password name=verifycode autocomplete=off></label>',
+                '<p>文档用积分表示cost/balance，个人信息余额字段名为balance_cents。下方1000是根据100积分与0.1元推算的参考值，请按本账户控制台核实；没有核实可只保存Key，付费调用仍会拦截。</p>'
+                '<label>cost/balance每1元对应单位数<input type=number name=units_per_yuan value=1000 min=0.000001 step=any required></label>'
+                '<label>balance_cents每1元对应单位数<input type=number name=balance_units_per_yuan value=1000 min=0.000001 step=any required></label>'
+                '<label><input style="width:auto" type=checkbox name=units_confirmed value=yes>我已按控制台核实两个换算单位</label><br><br>')
         self.send(200, page) if self.authorized() else self.send(404, "配置链接无效或已过期")
 
     def do_POST(self):
@@ -63,6 +70,10 @@ class Handler(BaseHTTPRequestHandler):
             if self.server.provider == "ark":
                 from .transcription import save_ark_key
                 save_ark_key(fields.get("api_key", [""])[0])
+            elif self.server.provider == "yddm":
+                from .yddm import save_credentials as save_yddm
+                save_yddm(fields.get("api_key", [""])[0], fields.get("units_per_yuan", ["1000"])[0],
+                          fields.get("balance_units_per_yuan", ["1000"])[0], fields.get("units_confirmed", [""])[0] == "yes")
             else:
                 save_credentials(fields.get("api_key", [""])[0], fields.get("verifycode", [""])[0])
         except (OSError, ValueError):
@@ -95,7 +106,7 @@ def serve(timeout: int, open_browser: bool, rendezvous: Path, provider: str = "j
 
 
 def launch_setup_service(open_browser=True, timeout=600, provider="jizhile"):
-    if provider not in ("jizhile", "ark"):
+    if provider not in ("jizhile", "ark", "yddm"):
         raise ValueError("未知配置类型")
     rendezvous = Path(tempfile.gettempdir()) / ("jizhile-setup-" + secrets.token_hex(16))
     process = subprocess.Popen([sys.executable, "-m", "jizhile_mcp.setup_server", "--serve", "--rendezvous", str(rendezvous),
@@ -121,7 +132,7 @@ def main():
     parser.add_argument("--rendezvous")
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--no-open", action="store_true")
-    parser.add_argument("--provider", choices=("jizhile","ark"), default="jizhile")
+    parser.add_argument("--provider", choices=("jizhile","ark","yddm"), default="jizhile")
     args = parser.parse_args()
     timeout = max(5, min(args.timeout, 600))
     if args.serve:

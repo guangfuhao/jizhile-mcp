@@ -33,7 +33,7 @@ def money(value: Any) -> Decimal:
 
 def redact(value: Any, secrets: list[str]) -> Any:
     if isinstance(value, dict):
-        return {k: "[REDACTED]" if k.lower() in {"key", "api_key", "verifycode", "token", "authorization"}
+        return {k: "[REDACTED]" if k.lower() in {"key", "api_key", "x-api-key", "verifycode", "token", "authorization"}
                 else redact(v, secrets) for k, v in value.items()}
     if isinstance(value, list):
         return [redact(v, secrets) for v in value]
@@ -41,15 +41,22 @@ def redact(value: Any, secrets: list[str]) -> Any:
         for secret in secrets:
             if secret:
                 value = value.replace(secret, "[REDACTED]")
+    if isinstance(value, int) and not isinstance(value, bool) and abs(value) > 2**53 - 1:
+        return str(value)
     return value
 
 
 class Client:
+    provider = "jizhile"
     def __init__(self, credentials: dict, transport: httpx.BaseTransport | None = None):
         self.credentials = credentials
         self.transport = transport
 
     def request(self, endpoint: dict, params: dict) -> dict:
+        if endpoint.get("contract_status") == "missing" or endpoint.get("availability") == "unavailable" or endpoint.get("encoding") not in {"json", "form", "query"}:
+            raise ApiError("请求契约不完整或接口不可用；禁止发送鉴权信息。")
+        if not endpoint["path"].startswith("/fbmain/monitor/v3/") or any(c in endpoint["path"] for c in ("?", "#", "..", ":", "\\")):
+            raise ApiError("尚未验证该平台的域名与鉴权契约；禁止发送API Key。")
         if not self.credentials.get("api_key"):
             raise ApiError("请先配置 API Key；不要把 Key 传给查询工具。")
         payload = {**params, "key": self.credentials["api_key"], "verifycode": self.credentials.get("verifycode", "")}
@@ -87,3 +94,12 @@ class Client:
             raise ApiError("余额格式异常；阻止付费调用。") from None
         return {"balance_yuan": str(balance), "request_time": data.get("request_time"),
                 "source": "upstream_balance", "notice": "余额查询未标示费用；本次实测未扣费。业务查询通常计费。"}
+
+    def billing(self, data: dict) -> tuple[Decimal | None, Decimal | None]:
+        value = data.get("cost_money", data.get("cost"))
+        actual = money(value) if value is not None else None
+        remaining = money(data["remain_money"]) if data.get("remain_money") is not None else None
+        return actual, remaining
+
+    def cache_content(self, data: dict) -> dict:
+        return {k: v for k, v in data.items() if k not in ("cost", "cost_money", "remain_money")}

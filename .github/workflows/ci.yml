@@ -12,6 +12,7 @@ jobs:
     env:
       JIZHILE_CONFIG_FILE: /tmp/jizhile-ci-no-credentials.json
       JIZHILE_ARK_CONFIG_FILE: /tmp/jizhile-ci-no-ark-credentials.json
+      JIZHILE_YDDM_CONFIG_FILE: /tmp/jizhile-ci-no-yddm-credentials.json
       JIZHILE_STATE_DIR: /tmp/jizhile-ci-state
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4

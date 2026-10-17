@@ -1,14 +1,36 @@
-# 极致了 · 公众号与视频号 MCP 插件
+# 极致了 · 全媒体与电商 MCP 插件
 
 **简体中文** | [English](README.en.md)
 
-供 Codex 和兼容 MCP 的 Agent 查询微信公众号、文章和视频号。实现了所给文档的50个操作目录与受预算保护的调用入口；并非每个上游操作都已真实测试。
+供 Codex 和兼容 MCP 的 Agent 调用公众号、视频号、全媒体与电商API，比较适用费用、提示对应账户余额并控制预算。同一插件内保留批量视频口播转写。
 
 - [服务方官网](https://www.jzl.com/)
 - [官方 API 文档](https://s.apifox.cn/410674f9-f451-4b4f-957a-5f54f243bc83)
 - 接口域名：`https://www.dajiala.com`。本项目为独立第三方客户端。
 
 支持公众号账号搜索、基础/主体信息、估算指标、当天/历史文章、贴图文章、正文/详情、阅读点赞、评论；视频号账号与视频搜索、作品/回放列表、ID、博主信息、互动/评论、分享与下载链接。返回服务方原始字段，额外附计费摘要。下载链接查询不下载媒体。
+
+## 全媒体与电商接口
+
+已适配[云端点新官方文档](https://s.apifox.cn/6faad22e-3ea1-4934-8926-69d0efb2dce1/llms.txt)全部241项操作，加原公众号/视频号50项，共291项文档操作，包含两个独立余额入口。目录还保留资费表中未列于新文档的12个旧路径，所以总计303项；2个星图操作仍按资费表的“不可用”标记拦截。共有289项完整且未禁用的契约（含2个余额入口），不是逐项真实付费可用性保证。详见[逐项接入清单](docs/tariff-coverage.md)。
+
+覆盖抖音、小红书、微博、B站、快手、X、YouTube、TikTok、Facebook、蒲公英、百度、搜狐、汽车之家、懂车帝、知乎、Instagram、星图、Reddit、京东、淘宝、拼多多、1688、速卖通、Sephora、Ulta、唯品会、微店、苏宁等新文档平台。请求参数按官方OpenAPI验证，支持JSON数组、对象、null和长ID字符串。6个空或错误schema以同页明确请求示例补齐，其他示例/schema差异在目录的`contract_notes`记录；没有填入示例目标。拼多多查询结果已按新文档纠正为`GET /pdd/async_get_comment_task`，GET的JSON请求体按官方定义发送。
+
+云端点使用 `https://api.yddm.com` 与独立的 `X-API-Key`，不会自动沿用极致了或火山Key。让Agent调用 `jizhile_setup_local(provider="yddm")` 打开限时本机配置页，或隐藏输入：
+
+```sh
+uv run jizhile-configure-yddm
+```
+
+云端点配置存储于 `~/.config/jizhile-mcp/yddm-credentials.json`（0600）。需要核实两个单位：业务`data.cost/data.balance`每1元的单位数，以及`GET /users/me`的`data.balance_cents`每1元的单位数。默认1000由文档“100积分”和资费表“0.1元”交叉推算，**必须按本账户控制台核实后勾选确认**，不能仅凭字段名假设“分”。未确认可保存Key和读取原始余额，但付费报价被拦截。支持 `JIZHILE_YDDM_API_KEY`、`JIZHILE_YDDM_CONFIG_FILE`、`JIZHILE_YDDM_UNITS_PER_YUAN`、`JIZHILE_YDDM_BALANCE_UNITS_PER_YUAN` 和 `JIZHILE_YDDM_UNITS_CONFIRMED=true`。
+
+Agent可用 `jizhile_catalog(category="douyin", keyword="搜索", offset=0, limit=100)` 查目录；用endpoint查看参数、必填项、类型、枚举、来源和接入状态；`callable_only=true`只列完整且未禁用项。`jizhile_compare(intent="custom", candidates=["douyin_general_search", "douyin_general_search2"])`比较适用预留；不能仅按单价假定版本字段等价。
+
+`jizhile_balance(provider="yddm")`查询云端点余额，`provider="jizhile"`查询原服务余额，不输出云端点个人信息。`jizhile_quote`根据endpoint自动使用对应Key；`yddm:`报价凭证由同一个`jizhile_execute`路由执行，工具总数仍为16。**公众号与云端点查询共用每日500元总预算，各次最多10元，各账户独立保留100元余额**；同一状态根目录下跨Key、跨进程串行执行。余额不能互相抵用，火山转写仍单独计账。异步任务的提交、查询、验收每步单独报价，不自动轮询或重复提交。
+
+2026-03-05资费表仅为历史快照，290条来源记录全部可追溯。报价同时展示表格、官方积分价格、已确认换算单位和当前对应账户余额。条件价按高档预留，来源冲突取较高金额；`tariff_snapshot`/`tariff_range`/`tariff_conflict`/`unknown`须明确预留并接受不确定性。文档明确积分价且单位已确认时为`documented_points`。接口/单位配置更新后旧报价失效；有历史账目的换算变更会阻止继续付费，需先核对。缺扣费、超预算或网络中断均保持待核对，不自动重试。
+
+330项自动测试通过，其中238个可执行云端点业务契约经模拟HTTP验证。真实云端点Key已通过鉴权、余额读取与安全余额拦截验证；因余额低于既定预留，本次没有提交真实付费业务请求，不能据此认定全部上游接口当前可用。见[脱敏验证回执](docs/cloud-test-receipt.json)。
 
 ## 视频口播转写与批量处理
 
@@ -70,7 +92,7 @@ codex plugin add jizhile-mcp@jizhile-local
 
 默认限制：**单次10元、每日500元、保留100元余额**，北京时间按日统计。每次查询后的预计余额必须至少为100元；例如余额100.50元时，可执行预计0.50元的查询，余额低于100元时会阻止新的付费查询。用户明确要求修改后，可配置 `JIZHILE_SINGLE_LIMIT`、`JIZHILE_DAILY_LIMIT`、`JIZHILE_BALANCE_RESERVE`；已有环境变量配置仍优先生效。预算不能通过查询工具参数临时提高。
 
-同Key共用私密SQLite账本；跨进程串行执行收费请求。凭证用后失效；调用前持久化预留，进程崩溃仍保留待核对状态。成功结果缓存5分钟并标明时间；缓存本次新增业务查询费0元，可用 `fresh=true` 强制刷新。缓存按Key隔离；本地存储路径为 `~/.local/share/jizhile-mcp/<key-fingerprint>/`，可由 `JIZHILE_STATE_DIR` 设置父目录。
+各服务Key使用独立私密SQLite账本，原公众号与云端点查询通过共享锁及聚合账目执行共同每日预算；跨进程串行执行收费请求。凭证用后失效；调用前持久化预留，进程崩溃仍保留待核对状态。成功结果缓存5分钟并标明时间；缓存本次新增业务查询费0元，可用 `fresh=true` 强制刷新。缓存按Key隔离；本地存储路径为 `~/.local/share/jizhile-mcp/<key-fingerprint>/`，可由 `JIZHILE_STATE_DIR` 设置父目录。
 
 无自动重试、自动分页、自动升级更贵接口。失败响应也读取 `cost_money`/`cost`；超时、费用缺失或超出预留立即阻止后续收费。用户核对服务方账单并给出该次真实费用后，用 `jizhile_reconcile` 修正本地待核对账目。
 
@@ -78,16 +100,14 @@ codex plugin add jizhile-mcp@jizhile-local
 
 ## 经济方案对比
 
-以下依据2026-10-13读取的接口文档；明确标价与响应示例严格区分，实际以接口账单为准。
+比较时使用工具返回的费用依据，勿把固定旧价格写进任务计划：
 
-|需求|可比较方案|费用依据与选择|
-|---|---|---|
-|搜索公众号账号|实时搜索 / 数据库搜索|实时1元/次；数据库0.20元/条，每页20条，可能4元。未验证size可降低数量，按至少4元预留。|
-|搜索文章|搜全部文章 / 文章类目|文档均0.50元/次；按排序、时间范围和返回字段选择。|
-|搜索视频|搜全部视频 / 视频类目|文档0.50 / 1元每次；满足需求时选搜全部。|
-|精确定位视频号|指定名称获取ID / 账号搜索|前者响应示例0.20元；后者文档1元/次。两者搜索范围不同，前者需接受不确定价格。|
-|公众号正文|HTML / Pro / 纯文本富文本 / 含视频|响应示例0.02 / 0.025 / 0.03 / 0.10元，字段不同，不视作等价，也不是已确认报价。|
-|公众号基础互动|基础 / Pro|响应示例0.02 / 0.04元；只需基础字段时无需升级。|
+|需求|比较依据|
+|---|---|
+|账号搜索|同时比较实时性、每次/每条计费及整页预留。数据库缩小size是否减少返回未验证。|
+|文章/视频搜索|按排序、时间、字段选择；不能仅凭单价判断输出等价。|
+|正文/互动|基础、Pro、HTML、视频详情字段不同；保留表格和原文档价格冲突。|
+|多平台版本|不同版本可能覆盖不同字段；缺契约项不推荐执行，不自动升级或失败重试。|
 
 优先复用已获得的标识、列表数据与缓存，避免重复搜索、转换和补查。当天发文与历史文章窗口不同，不能只按单价替换。数据库粉丝为估算，不作为实时精确粉丝数。
 
@@ -104,7 +124,7 @@ codex plugin add jizhile-mcp@jizhile-local
 - “比较获取公众号正文的接口价格，先别付费查询。”
 - “从这个50条视频表里，只转写第1、2、45条口播，先估算火山费用，在1元总预算内执行。”
 
-所有操作目录和价格来源见 `src/jizhile_mcp/catalog.json`、`docs/sources.json`。长ID必须用字符串，避免超过JavaScript安全整数范围。部分文档有冲突，例如视频搜索字段说明写BusinessType=2，而示例为7；本插件使用视频示例7并在目录标注。
+原契约见 `src/jizhile_mcp/catalog.json`，云端点契约见 `src/jizhile_mcp/cloud_contracts.json`，资费快照见 `src/jizhile_mcp/tariff_snapshot.json`，来源与合并清单见 `docs/sources.json`、`docs/tariff-coverage.json`。长ID必须用字符串，避免超过JavaScript安全整数范围。部分文档有冲突，例如视频搜索字段说明写BusinessType=2，而示例为7；本插件使用视频示例7并在目录标注。
 
 ## 验证
 
